@@ -1,0 +1,41 @@
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  versions = [
+  scala: '2.10',
+  rev: '3',
+  spec2: '2.3.12'
+  ]
+}
+
+dependencies {
+  runtime "org.scala-lang:scala-compiler:${versions.scala}.${versions.rev}"
+  compile "org.scala-lang:scala-library:${versions.scala}.${versions.rev}"
+  testCompile "org.specs2:specs2_${versions.scala}:${versions.spec2}"
+}
+
+// Enabling the Fast Scala Compiler
+compileScala {
+  scalaCompileOptions.useCompileDaemon = true
+
+  // optionally specify host and port of the daemon:
+  // scalaCompileOptions.daemonServer = "localhost:4243"
+}
+
+// Adjusting memory settings
+tasks.withType(ScalaCompile) {
+  configure(scalaCompileOptions.forkOptions) {
+    memoryMaximumSize = '1g'
+    jvmArgs = ['-XX:MaxPermSize=1024m']
+  }
+}
+
+// Activating the Zinc based compiler
+tasks.withType(ScalaCompile) {
+  scalaCompileOptions.useAnt = false
+}

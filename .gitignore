@@ -1,0 +1,32 @@
+*.class
+
+# Exclude OS X folder attributes
+.DS_Store
+
+# Exclude temp nibs and swap files
+*.swp
+
+# backup files
+*~
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea
+
+# eclipse
+.classpath
+.project
+.settings
+.pydevproject
+.springBeans
+log.txt
+out/
+
+#build files
+BUILD_DATE
+build/
+.gradle
+target/
+
